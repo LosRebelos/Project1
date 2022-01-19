@@ -1,7 +1,9 @@
 '''
 author =
 '''
+from codecs import BOM_BE
 from typing import KeysView, Text
+from unicodedata import digit
 
 
 TEXTS = ['''
@@ -54,9 +56,13 @@ if username in uzivatele.keys() and password == uzivatele[username]:
 Welcome to the app, {username}
 We have {(len(TEXTS))} texts to be analyzed
 {line}""")
-    number_of_text = int(input(f"Enter a number btw. 1 and {(len(TEXTS))} to select: "))-1
+    chosen_number = input(f"Enter a number btw. 1 and {(len(TEXTS))} to select: ")
     print(line)
-    
+    if chosen_number.isdigit() and int(chosen_number) <= len(TEXTS):
+        number_of_text = int(chosen_number) -1
+    else:
+        print("Neplatný vstup, ukončuji..")
+        quit()
 else:
     print("Neplatné uživatelské jméno nebo heslo!")
     quit()
@@ -66,6 +72,8 @@ list_of_words = []
 
 for word in TEXTS[number_of_text].split():
     list_of_words.append(word.strip(",.:;"))
+while "" in list_of_words:
+        list_of_words.remove("")
 
 #Počet slov v textu
 print(f"There are {len(list_of_words)} words in the selected text.")
