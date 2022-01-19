@@ -1,9 +1,7 @@
 '''
 author =
 '''
-from codecs import BOM_BE
 from typing import KeysView, Text
-from unicodedata import digit
 
 
 TEXTS = ['''
